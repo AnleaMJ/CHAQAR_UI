@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Preparation</title>
+</head>
+<body>
+    <h1>Step 2: Prepare Metadata</h1>
+    <form action="/prepare_metadata" method="post">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" placeholder="Enter title" required><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" placeholder="Enter description" required></textarea><br><br>
+
+        <label for="file-uri">File URI (IPFS Hash):</label><br>
+        <input type="text" id="file-uri" name="file_uri" placeholder="Paste IPFS hash of file" required><br><br>
+
+        <label for="creator-address">Creator Address:</label><br>
+        <input type="text" id="creator-address" name="creator_address" placeholder="Enter wallet address" required><br><br>
+
+        <button type="submit">Upload Metadata to IPFS</button>
+    </form>
+</body>
+</html>
