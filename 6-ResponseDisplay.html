@@ -3,49 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction Response</title>
+    <title>Response</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
+            background-color: #000000;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        h1 {
-            color: #333;
+
+        .container {
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            width: 400px;
             text-align: center;
         }
-        .response-container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: auto;
+
+        h1 {
+            font-size: 22px;
+            color: #ffffff;
+            margin-bottom: 20px;
         }
+
         p {
+            font-size: 16px;
+            color: #cccccc;
             margin: 10px 0;
-            font-size: 1.2em;
+            text-align: left;
         }
-        .loading {
-            color: #aaa;
+
+        strong {
+            color: #ffffff;
+        }
+
+        .hash-container {
+            background-color: #2b2b2b;
+            border-radius: 5px;
+            padding: 10px;
+            color: #00ff00;
+            font-family: "Courier New", Courier, monospace;
+            word-wrap: break-word;
+            margin: 10px 0;
+        }
+
+        .explorer-link {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .explorer-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h1>Step 4: Transaction Response</h1>
-    <div class="response-container">
-        <p><strong>Transaction Hash:</strong> <span id="transaction-hash" class="loading">Loading...</span></p>
-        <p><strong>Metadata URI:</strong> <span id="metadata-uri" class="loading">Loading...</span></p>
-        <p>Check your transaction on the blockchain explorer!</p>
+    <div class="container">
+        <h1>Step 4: Transaction Response</h1>
+        <p><strong>Transaction Hash:</strong></p>
+        <div class="hash-container" id="transaction-hash">Loading...</div>
+        
+        <p><strong>Metadata URI:</strong></p>
+        <div class="hash-container" id="metadata-uri">Loading...</div>
+
+        <p><a href="#" target="_blank" class="explorer-link">Check your transaction on the blockchain explorer!</a></p>
     </div>
     <script>
         // Example to populate data dynamically (replace with actual response data)
         document.getElementById("transaction-hash").textContent = "0x1234abcd5678efgh...";
         document.getElementById("metadata-uri").textContent = "ipfs://QmExampleHash";
-        
-        // Remove loading class after data is populated
-        document.getElementById("transaction-hash").classList.remove("loading");
-        document.getElementById("metadata-uri").classList.remove("loading");
     </script>
 </body>
 </html>
