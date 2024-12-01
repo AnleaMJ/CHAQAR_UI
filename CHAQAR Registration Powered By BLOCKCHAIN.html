@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHAQAR User Registration</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000; /* Black background */
+      color: #fff; /* White text for contrast */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .registration-container {
+      text-align: center;
+      max-width: 400px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5); /* Glowing effect */
+    }
+    h1 {
+      color: #0ff; /* Cyan color for branding */
+      margin-bottom: 20px;
+    }
+    .wallet-button {
+      display: block;
+      margin: 15px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #000;
+      background-color: #0ff; /* Cyan button */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .wallet-button:hover {
+      background-color: #00cccc; /* Darker cyan on hover */
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="registration-container">
+    <h1>CHAQAR Registration</h1>
+    <p>Sign up securely using your wallet.</p>
+    
+    <!-- MetaMask Registration -->
+    <button class="wallet-button" id="metamask-btn">Register with MetaMask</button>
+    
+    <!-- WalletConnect Registration -->
+    <button class="wallet-button" id="walletconnect-btn">Register with WalletConnect</button>
+    
+    <div class="footer">
+      <p>Powered by Blockchain Technology</p>
+    </div>
+  </div>
+
+  <script>
+    // MetaMask Button Logic
+    document.getElementById("metamask-btn").addEventListener("click", async () => {
+      if (typeof window.ethereum !== "undefined") {
+        try {
+          // Request wallet connection
+          const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+          alert(`Wallet Connected: ${accounts[0]}`);
+          // Add your logic to send the public address to the server here
+        } catch (error) {
+          alert("MetaMask connection failed. Please try again.");
+          console.error(error);
+        }
+      } else {
+        alert("MetaMask is not installed. Please install it to register.");
+      }
+    });
+
+    // WalletConnect Button Logic
+    document.getElementById("walletconnect-btn").addEventListener("click", () => {
+      alert("WalletConnect functionality will be implemented here.");
+      // Implement WalletConnect logic or library here
+    });
+  </script>
+</body>
+</html>
