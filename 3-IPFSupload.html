@@ -7,132 +7,76 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            background-color: #000000;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
+
+        .container {
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+        }
+
         h1 {
-            color: #333;
-        }
-        form {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 5px;
-            max-width: 500px;
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-        input[type="file"] {
+            font-size: 24px;
+            color: #ffffff;
             margin-bottom: 20px;
         }
+
+        label {
+            font-size: 16px;
+            color: #cccccc;
+            margin-bottom: 10px;
+            display: block;
+            text-align: left;
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #444444;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #2b2b2b;
+            color: #ffffff;
+        }
+
         button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
             border: none;
+            padding: 12px 20px;
+            font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
+
         button:hover {
-            background-color: #45a049;
-        }
-        #progressBar {
-            width: 100%;
-            background-color: #f3f3f3;
-            margin-top: 20px;
-            display: none;
-        }
-        #progressBar div {
-            width: 0%;
-            height: 30px;
-            background-color: #4CAF50;
-            text-align: center;
-            line-height: 30px;
-            color: white;
-        }
-        #message {
-            margin-top: 20px;
-            display: none;
-        }
-        .drag-drop {
-            border: 2px dashed #ccc;
-            padding: 40px;
-            text-align: center;
-            margin-bottom: 20px;
-            border-radius: 5px;
-        }
-        .drag-drop.dragover {
-            border-color: #4CAF50;
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h1>Step 1: Upload File to IPFS</h1>
-    <div class="drag-drop" id="dragDropZone">
-        Drag and drop your file here or click to select a file
-        <input type="file" id="fileInput" style="display: none;" required>
+    <div class="container">
+        <h1>Step 1: Upload File to IPFS</h1>
+        <form action="/upload_to_ipfs" method="post" enctype="multipart/form-data">
+            <label for="file">Choose File:</label>
+            <input type="file" id="file" name="file" required>
+            <button type="submit">Upload to IPFS</button>
+        </form>
     </div>
-    <form id="uploadForm" action="/upload_to_ipfs" method="post" enctype="multipart/form-data">
-        <label for="file">Choose File:</label>
-        <input type="file" id="file" name="file" required><br><br>
-        <button type="submit">Upload to IPFS</button>
-    </form>
-    <div id="progressBar"><div></div></div>
-    <div id="message"></div>
-    <script>
-        const form = document.getElementById('uploadForm');
-        const fileInput = document.getElementById('fileInput');
-        const dragDropZone = document.getElementById('dragDropZone');
-        const progressBar = document.getElementById('progressBar');
-        const progressBarFill = progressBar.querySelector('div');
-        const message = document.getElementById('message');
-
-        dragDropZone.addEventListener('click', () => fileInput.click());
-        dragDropZone.addEventListener('dragover', (event) => {
-            event.preventDefault();
-            dragDropZone.classList.add('dragover');
-        });
-        dragDropZone.addEventListener('dragleave', () => dragDropZone.classList.remove('dragover'));
-        dragDropZone.addEventListener('drop', (event) => {
-            event.preventDefault();
-            dragDropZone.classList.remove('dragover');
-            fileInput.files = event.dataTransfer.files;
-        });
-
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const file = fileInput.files[0];
-            if (file) {
-                const formData = new FormData();
-                formData.append('file', file);
-
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', '/upload_to_ipfs', true);
-
-                xhr.upload.addEventListener('progress', (e) => {
-                    if (e.lengthComputable) {
-                        const percentComplete = (e.loaded / e.total) * 100;
-                        progressBarFill.style.width = percentComplete + '%';
-                        progressBarFill.textContent = Math.round(percentComplete) + '%';
-                        progressBar.style.display = 'block';
-                    }
-                });
-
-                xhr.onload = () => {
-                    progressBar.style.display = 'none';
-                    if (xhr.status === 200) {
-                        message.textContent = 'File uploaded successfully!';
-                        message.style.color = 'green';
-                    } else {
-                        message.textContent = 'Failed to upload file.';
-                        message.style.color = 'red';
-                    }
-                    message.style.display = 'block';
-                };
-
-                xhr.send(formData);
-            }
-        });
-    </script>
 </body>
 </html>
